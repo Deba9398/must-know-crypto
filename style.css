@@ -28,7 +28,7 @@ header .header-container {
     max-width: 1280px;
     margin: 0 auto;
     width: 100%;
-    padding: 4px 0;
+    padding: 4px 8px;
 }
 
 header .left,
@@ -41,6 +41,12 @@ header .right {
     justify-content: flex-end;
 }
 
+@media only screen and (max-width : 640px) {
+    header .right {
+        display: none;
+    }
+}
+
 .search-textbox {
     border-radius: 2px;
     background: rgba(0, 0, 0, 0.05);
@@ -51,6 +57,7 @@ header .right {
     margin: 0 16px;
     box-shadow: none;
     transition: background-color 150ms, box-shadow 150ms;
+    min-width: 0;
 }
 
 .search-textbox:active,
@@ -93,6 +100,10 @@ h2 {
 @media only screen and (max-width : 640px) {
     .link-list {
         grid-template-columns: 1fr;
+    }
+
+    .link-list > .card {
+        margin: 0 0 8px;
     }
 }
 
