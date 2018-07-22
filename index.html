@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Must Know Crypto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        h1.title {
+            font-size: 20px;
+            flex: 1 1 0;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header .header-container {
+            display: flex;
+            align-items: center;
+            max-width: calc(1280px - 32px);
+            margin: 0 auto;
+            width: 100%;
+            padding: 4px 0;
+        }
+
+        header .left,
+        header .right {
+            flex: 1 0 0;
+        }
+
+        header .right {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .search-textbox {
+            border-radius: 2px;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            padding: 12px 24px;
+            flex: 2 2 0;
+            color: #333;
+            margin: 0 16px;
+            box-shadow: none;
+            transition: background-color 150ms, box-shadow 150ms;
+        }
+
+        .search-textbox:active,
+        .search-textbox:focus {
+            background: white;
+            box-shadow: 0 1px 1px 0 rgba(60,64,67,.08),0 1px 3px 1px rgba(60,64,67,.16)
+        }
+
+        h1,
+        h2 {
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1280px;
+            padding: 0 8px;
+            margin: auto;
+        }
+
+        .card {
+            background: #fff;
+            padding: 0 16px 16px;
+            margin: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .link-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            margin-top: 16px;
+        }
+
+        @media only screen and (max-width : 1024px) {
+            .link-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media only screen and (max-width : 640px) {
+            .link-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .link-list>div {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .link-list>div>h2 {
+            margin: 16px 8px 8px;
+            font-weight: 400;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #666;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        li {
+            font-weight: 300;
+            font-size: 16px;
+            border-radius: 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        li:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        a {
+            position: relative;
+            text-decoration: none;
+            color: #333;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        li img {
+            width: 16px;
+            height: 16px;
+            margin-right: 16px;
+        }
+
+        div.url {
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 12px;
+            padding-top: 2px;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        a > div {
+            min-width: 0;
+        }
+
+        .no-results {
+            margin-top: 64px;
+            text-align: center;
+            color: rgba(0,0,0,0.7);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <div class="header-container">
+                <div class="left">
+                    <h1 class="title">MustKnowCrypto</h1>
+                </div>
+                <input type="text" class="search-textbox" placeholder="Search..." v-model="search">
+                <div class="right">
+                    <a href="#">Contribute</a>
+                </div>
+            </div>
+            
+        </header>
+
+        <div class="container">
+            <h2 class="no-results" v-if="!filteredList.length">
+                No search results found for '{{search}}'.
+            </h2>
+            <div class="link-list">
+                <div v-for="list in filteredList" class="card">
+                    <h2>{{list.title}}</h2>
+                    <ul>
+                        <li v-for="link in list.links">
+                            <a v-bind:href="link.url" v-bind:data-favicon-src="favicon(link.url)">
+                                <img v-bind:src="favicon(link.url)" ref="el" />
+                                <div>
+                                    <div>{{link.title}}</div>
+                                    <div class="url">{{link.url}}</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            methods: {
+                favicon(url) {
+                    return `https://icons.duckduckgo.com/ip2/${url.split('/')[2]}.ico`
+                },
+                sortResources(resources) {
+                    return resources.sort((a, b) => {
+                        return b.links.length > a.links.length;
+                    });
+                }
+            },
+            data: {
+                search: '',
+                resources: [
+                    {
+                        title: "Coin Lists",
+                        links: [
+                            { title: 'CoinMarketCap', url: 'https://coinmarketcap.com/' },
+                            { title: 'TradingView', url: 'https://www.tradingview.com/markets/cryptocurrencies/prices-all/' },
+                            { title: 'CoinCap', url: 'https://coincap.io/' },
+                            { title: 'EveningStar', url: 'https://eveningstar.io/' },
+                            { title: 'CoinGecko', url: 'https://www.coingecko.com/' },
+                            { title: 'CryptoCompare', url: 'https://www.cryptocompare.com/coins/' },
+                            { title: 'BitInfoCharts', url: 'https://bitinfocharts.com/top-cryptocurrency-list.html' },
+                            { title: 'CryptoCoinCharts', url: 'https://cryptocoincharts.info/coins/info' },
+                            { title: 'Yahoo Finance', url: 'https://finance.yahoo.com/cryptocurrencies' },
+                            { title: 'FlipHodl', url: 'https://fliphodl.com/token-market/' }
+                        ]
+                    },
+                    {
+                        title: 'Exhanges',
+                        links: [
+                            { title: 'List of Exchanges', url: 'https://coinmarketcap.com/exchanges/volume/24-hour/' },
+                            { title: 'Coinbase', url: 'https://www.coinbase.com/' },
+                            { title: 'Binance', url: 'https://www.binance.com/' },
+                            { title: 'Bittrex', url: 'https://bittrex.com/' },
+                            { title: 'Kucoin', url: 'https://www.kucoin.com/' },
+                            { title: 'Gemini', url: 'https://gemini.com/' },
+                            { title: 'IDEX', url: 'https://idex.market' }
+                        ]
+                    },
+                    {
+                        title: 'Crypto News',
+                        links: [
+                            { title: 'CryptoPanic', url: 'https://cryptopanic.com/' },
+                            { title: 'CoinMarketCal', url: 'https://coinmarketcal.com/' },
+                            { title: 'CoinTelegraph', url: 'https://cointelegraph.com/' }
+                        ]
+                    },
+                    {
+                        title: 'Heatmaps',
+                        links: [
+                            { title: 'Coin360', url: 'https://coin360.io/' },
+                            { title: 'Yahoo Finance', url: 'https://finance.yahoo.com/cryptocurrencies/heatmap' }
+                        ]
+                    }
+                ]
+            },
+            computed: {
+                filteredList() {
+                    if (!this.search) {
+                        return this.sortResources(this.resources);
+                    }
+
+                    const resources = this.resources.map(category => {
+                        const matchingLinks = category.links.filter(link => {
+                                return link.title.toLowerCase().includes(this.search.toLowerCase())
+                            });
+
+                        if (!matchingLinks.length) {
+                            return undefined;
+                        }
+
+                        return {
+                            title: category.title,
+                            links: matchingLinks
+                        }
+                    }).filter(category => category !== undefined);
+
+                    return this.sortResources(resources);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
