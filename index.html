@@ -15,8 +15,7 @@
     <meta name="msapplication-TileColor" content="#ff9900">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
     <style>
         body {
@@ -218,6 +217,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="website-list.js"></script>
     <script>
         var app = new Vue({
             el: '#app',
@@ -233,50 +233,7 @@
             },
             data: {
                 search: '',
-                resources: [
-                    {
-                        title: "Coin Lists",
-                        links: [
-                            { title: 'CoinMarketCap', url: 'https://coinmarketcap.com/' },
-                            { title: 'TradingView', url: 'https://www.tradingview.com/markets/cryptocurrencies/prices-all/' },
-                            { title: 'CoinCap', url: 'https://coincap.io/' },
-                            { title: 'EveningStar', url: 'https://eveningstar.io/' },
-                            { title: 'CoinGecko', url: 'https://www.coingecko.com/' },
-                            { title: 'CryptoCompare', url: 'https://www.cryptocompare.com/coins/' },
-                            { title: 'BitInfoCharts', url: 'https://bitinfocharts.com/top-cryptocurrency-list.html' },
-                            { title: 'CryptoCoinCharts', url: 'https://cryptocoincharts.info/coins/info' },
-                            { title: 'Yahoo Finance', url: 'https://finance.yahoo.com/cryptocurrencies' },
-                            { title: 'FlipHodl', url: 'https://fliphodl.com/token-market/' }
-                        ]
-                    },
-                    {
-                        title: 'Exhanges',
-                        links: [
-                            { title: 'List of Exchanges', url: 'https://coinmarketcap.com/exchanges/volume/24-hour/' },
-                            { title: 'Coinbase', url: 'https://www.coinbase.com/' },
-                            { title: 'Binance', url: 'https://www.binance.com/' },
-                            { title: 'Bittrex', url: 'https://bittrex.com/' },
-                            { title: 'Kucoin', url: 'https://www.kucoin.com/' },
-                            { title: 'Gemini', url: 'https://gemini.com/' },
-                            { title: 'IDEX', url: 'https://idex.market' }
-                        ]
-                    },
-                    {
-                        title: 'Crypto News',
-                        links: [
-                            { title: 'CryptoPanic', url: 'https://cryptopanic.com/' },
-                            { title: 'CoinMarketCal', url: 'https://coinmarketcal.com/' },
-                            { title: 'CoinTelegraph', url: 'https://cointelegraph.com/' }
-                        ]
-                    },
-                    {
-                        title: 'Heatmaps',
-                        links: [
-                            { title: 'Coin360', url: 'https://coin360.io/' },
-                            { title: 'Yahoo Finance', url: 'https://finance.yahoo.com/cryptocurrencies/heatmap' }
-                        ]
-                    }
-                ]
+                resources: WEBSITE_LIST
             },
             computed: {
                 filteredList() {
