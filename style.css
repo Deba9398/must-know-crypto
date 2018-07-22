@@ -5,8 +5,16 @@ body {
 }
 
 h1.title {
-    font-size: 20px;
+    font-size: 18px;
     flex: 1 1 0;
+    display: flex;
+    align-items: center;
+}
+
+h1.title > img {
+    height: 24px;
+    width: 24px;
+    margin-right: 8px;
 }
 
 header {
@@ -17,7 +25,7 @@ header {
 header .header-container {
     display: flex;
     align-items: center;
-    max-width: calc(1280px - 32px);
+    max-width: 1280px;
     margin: 0 auto;
     width: 100%;
     padding: 4px 0;
@@ -154,4 +162,22 @@ a > div {
     margin-top: 64px;
     text-align: center;
     color: rgba(0,0,0,0.7);
+}
+
+.contribute-link {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.contribute-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.contribute-link img {
+    height: 20px;
+    width: 20px;
+    padding-bottom: 4px;
 }

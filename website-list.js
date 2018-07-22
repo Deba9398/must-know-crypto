@@ -31,7 +31,9 @@ const WEBSITE_LIST = [
         links: [
             { title: 'CryptoPanic', url: 'https://cryptopanic.com/' },
             { title: 'CoinMarketCal', url: 'https://coinmarketcal.com/' },
-            { title: 'CoinTelegraph', url: 'https://cointelegraph.com/' }
+            { title: 'CoinTelegraph', url: 'https://cointelegraph.com/' },
+            { title: 'CCN', url: 'https://www.ccn.com/' },
+            { title: 'CoinDesk', url: 'https://www.coindesk.com/' }
         ]
     },
     {
